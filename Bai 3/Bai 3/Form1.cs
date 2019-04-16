@@ -299,7 +299,10 @@ namespace Bai_3
             Ob.p1.Y += kcy;
             Ob.p2.X += kcx;
             Ob.p2.Y += kcy;
-            StartPointSpecial = Po;
+            if (MultiSelect == false)
+            {
+                StartPointSpecial = Po;
+            }
         }
         public void Zoom(ref PointF A,PointF Po)
         {
@@ -307,7 +310,10 @@ namespace Bai_3
             float kcy = Po.Y - StartPointSpecial.Y;
             A.X += kcx;
             A.Y += kcy;
-            StartPointSpecial = Po;
+            if (MultiSelect == false)
+            {
+                StartPointSpecial = Po;
+            }
         }
         public void XacDinhLaiViTriPolygon(ref DrawObject A)
         {
@@ -534,6 +540,7 @@ namespace Bai_3
                         ListDrawObject[i] = Temp;
                     }
                 }
+                StartPointSpecial = e.Location;
                 IsStartChange = false;
             }
             else
@@ -575,6 +582,7 @@ namespace Bai_3
                             }
                         }
                     }
+                    StartPointSpecial = e.Location;
                     IsStartZoom = false;
                 }
             }          
@@ -646,6 +654,7 @@ namespace Bai_3
                         ListDrawObject[i] = Temp;
                     }
                 }
+                StartPointSpecial = e.Location;
             }
             else
             {
@@ -686,6 +695,7 @@ namespace Bai_3
                             }
                         }
                     }
+                    StartPointSpecial = e.Location;
                 }
             }           
             this.Main_PictureBox.Refresh();
@@ -717,6 +727,10 @@ namespace Bai_3
         {
             public PointF p1;
             public PointF p2;
+            public PointF MostAbove;
+            public PointF MostBelow;
+            public PointF MostLeft;
+            public PointF MostRight;
             public PointF[] PointArray;
             public cRectangle DashReRectangle; 
             public Color MyColor = Color.Black;
@@ -731,7 +745,6 @@ namespace Bai_3
             public override void Draw(Graphics gp, Pen MyPen)
             {
                 gp.DrawLine(MyPen, this.p1, this.p2);
-         
             }
             public override void Fill(Graphics gp, Brush MyBrush)
             {

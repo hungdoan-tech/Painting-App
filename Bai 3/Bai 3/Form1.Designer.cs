@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.Main_PictureBox = new System.Windows.Forms.PictureBox();
             this.Line_Button = new System.Windows.Forms.Button();
             this.Ecclipe_Button = new System.Windows.Forms.Button();
@@ -44,7 +43,6 @@
             this.Select_Button = new System.Windows.Forms.Button();
             this.Dash_RadioButton = new System.Windows.Forms.RadioButton();
             this.Line_RadioButton = new System.Windows.Forms.RadioButton();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Main_PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Width_NumericUpDown)).BeginInit();
             this.SuspendLayout();
@@ -249,7 +247,6 @@
         private System.Windows.Forms.Button Select_Button;
         private System.Windows.Forms.RadioButton Dash_RadioButton;
         private System.Windows.Forms.RadioButton Line_RadioButton;
-        private System.Windows.Forms.Timer timer1;
     }
 }
 
