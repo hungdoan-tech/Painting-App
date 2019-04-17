@@ -280,7 +280,7 @@
             // Line_RadioButton
             // 
             this.Line_RadioButton.AutoSize = true;
-            this.Line_RadioButton.Location = new System.Drawing.Point(23, 39);
+            this.Line_RadioButton.Location = new System.Drawing.Point(24, 39);
             this.Line_RadioButton.Name = "Line_RadioButton";
             this.Line_RadioButton.Size = new System.Drawing.Size(71, 17);
             this.Line_RadioButton.TabIndex = 23;
