@@ -207,12 +207,24 @@ namespace Bai_3
             }
             MyObject.MyBrush = new SolidBrush(MyObject.MyColor);
 
-            MyObject.DashReRectangle = new cRectangle();
-            MyObject.DashReRectangle.MyPen = new Pen(Color.Black, 3);
-            MyObject.DashReRectangle.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            MyObject.DashReRectangle.p1 = MyObject.p1;
-            MyObject.DashReRectangle.p2 = MyObject.p2;
+            MyObject.DashRectangle = new cRectangle();
+            MyObject.DashRectangle.MyPen = new Pen(Color.Black, 3);
+            MyObject.DashRectangle.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            if (NumberOfObject == 6 || NumberOfObject == 7)
+            {
+                float a =MyObject.p2.X - MyObject.p1.X;
+                float b = MyObject.p2.Y - MyObject.p1.Y;
+                double radius = Math.Sqrt((a * a) + (b * b)) / 2;
 
+                MyObject.DashRectangle.p1 = MyObject.p1;
+                MyObject.DashRectangle.p2.X = MyObject.p1.X + (float)(2 * radius);
+                MyObject.DashRectangle.p2.Y = MyObject.p1.Y + (float)(2 * radius);
+            }
+            else
+            {
+                MyObject.DashRectangle.p1 = MyObject.p1;
+                MyObject.DashRectangle.p2 = MyObject.p2;
+            }
             this.ListDrawObject.Add(MyObject);
         }
         public void InitializeComponentOfPolygon(PointF e)
@@ -272,11 +284,11 @@ namespace Bai_3
             XacDinhLaiViTriPolygon(ref MyObject);
             this.ListDrawObject.Add(MyObject);
 
-            MyObject.DashReRectangle = new cRectangle();
-            MyObject.DashReRectangle.MyPen = new Pen(Color.Black, 3);
-            MyObject.DashReRectangle.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            MyObject.DashReRectangle.p1 = MyObject.p1;
-            MyObject.DashReRectangle.p2 = MyObject.p2;
+            MyObject.DashRectangle = new cRectangle();
+            MyObject.DashRectangle.MyPen = new Pen(Color.Black, 3);
+            MyObject.DashRectangle.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            MyObject.DashRectangle.p1 = MyObject.p1;
+            MyObject.DashRectangle.p2 = MyObject.p2;
 
             PointListPolygon.Clear();
             ListLinePolygon.Clear();
@@ -315,7 +327,122 @@ namespace Bai_3
                 StartPointSpecial = Po;
             }
         }
+        public void ZoomPolygon(ref DrawObject Ob, PointF Po)
+        {
+            float kcx = Po.X - StartPointSpecial.X;
+            float kcy = Po.Y - StartPointSpecial.Y;
+            switch (HuongZoom)
+            {
+                case 1:
+                    {
+                        for(int i=0;i<Ob.PointArray.Length;i++)
+                        {
+                            if (Ob.PointArray[i].Y != Ob.MostAbove.Y)
+                            {
+                                Ob.PointArray[i].X += kcx;
+                                Ob.PointArray[i].Y += kcy;
+                            }
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        for (int i = 0; i < Ob.PointArray.Length; i++)
+                        {
+                            if (Ob.PointArray[i].Y != Ob.MostBelow.Y)
+                            {
+                                Ob.PointArray[i].X += kcx;
+                                Ob.PointArray[i].Y += kcy;
+                            }
+                        }
+                        break;
+                    }
+                case 3:
+                    {
+                        for (int i = 0; i < Ob.PointArray.Length; i++)
+                        {
+                            if (Ob.PointArray[i].X != Ob.MostRight.X)
+                            {
+                                Ob.PointArray[i].X += kcx;
+                                Ob.PointArray[i].Y += kcy;
+                            }
+                        }
+                        break;
+                    }
+                case 4:
+                    {
+                        for (int i = 0; i < Ob.PointArray.Length; i++)
+                        {
+                            if (Ob.PointArray[i].X != Ob.MostLeft.X)
+                            {
+                                Ob.PointArray[i].X += kcx;
+                                Ob.PointArray[i].Y += kcy;
+                            }
+                        }
+                        break;
+                    }
+            }           
+            if (MultiSelect == false)
+            {
+                StartPointSpecial = Po;
+            }
+        }
         public void XacDinhLaiViTriPolygon(ref DrawObject A)
+        {
+            PointF MinX = A.PointArray[0];
+            PointF MaxX = A.PointArray[0];
+            PointF MinY = A.PointArray[0];
+            PointF MaxY = A.PointArray[0];
+            PointF MaxAbove = A.PointArray[0];
+            PointF MaxLeft = A.PointArray[0];
+            PointF MaxRight = A.PointArray[0];
+            PointF MaxBelow = A.PointArray[0];
+            for (int i = 0; i < A.PointArray.Length; i++)
+            {
+                if (A.PointArray[i].X < MinX.X)
+                {
+                    MinX = A.PointArray[i];
+                }
+                if (A.PointArray[i].X > MaxX.X)
+                {
+                    MaxX = A.PointArray[i];
+                }
+                if (A.PointArray[i].Y < MinY.Y)
+                {
+                    MinY = A.PointArray[i];
+                }
+                if (A.PointArray[i].Y > MaxY.Y)
+                {
+                    MaxY = A.PointArray[i];
+                }
+                if (A.PointArray[i].Y < MaxAbove.Y)
+                {
+                    MaxAbove = A.PointArray[i];
+                }
+                if (A.PointArray[i].Y > MaxBelow.Y)
+                {
+                    MaxBelow = A.PointArray[i];
+                }
+                if (A.PointArray[i].X < MaxLeft.X)
+                {
+                    MaxLeft = A.PointArray[i];
+                }
+                if (A.PointArray[i].X > MaxRight.X)
+                {
+                    MaxRight = A.PointArray[i];
+                }
+            }
+            A.p1.X = MinX.X;
+            A.p1.Y = MinY.Y;
+            A.p2.X = MaxX.X;
+            A.p2.Y = MaxY.Y;
+
+            A.MostAbove = MaxAbove;
+            A.MostBelow = MaxBelow;
+            A.MostLeft = MaxLeft;
+            A.MostRight = MaxRight;
+        }
+        public void XacDinhLaiViTriPolygonSpecial(ref DrawObject A)
         {
             PointF MinX = A.PointArray[0];
             PointF MaxX = A.PointArray[0];
@@ -535,8 +662,8 @@ namespace Bai_3
                     {
                         DrawObject Temp = ListDrawObject[i];
                         XacDinhLaiViTri(ref Temp, e.Location);
-                        Temp.DashReRectangle.p1 = Temp.p1;
-                        Temp.DashReRectangle.p2 = Temp.p2;
+                        Temp.DashRectangle.p1 = Temp.p1;
+                        Temp.DashRectangle.p2 = Temp.p2;
                         ListDrawObject[i] = Temp;
                     }
                 }
@@ -549,33 +676,45 @@ namespace Bai_3
                 {
                     for (int i = 0; i < ListDrawObject.Count; i++)
                     {
-                        if (ListDrawObject[i].BeChosen == true)
+                        if (ListDrawObject[i].PointArray != null)
                         {
-                            if (HuongZoom == 1)
+                            DrawObject Temp = ListDrawObject[i];
+                            ZoomPolygon(ref Temp, e.Location);
+                            XacDinhLaiViTriPolygon(ref Temp);
+                            Temp.DashRectangle.p1 = Temp.p1;
+                            Temp.DashRectangle.p2 = Temp.p2;
+                            ListDrawObject[i] = Temp;
+                        }
+                        else
+                        {
+                            if (ListDrawObject[i].BeChosen == true)
                             {
-                                Zoom(ref ListDrawObject[i].p2, e.Location);
-                                ListDrawObject[i].DashReRectangle.p2 = ListDrawObject[i].p2;
-                            }
-                            else
-                            {
-                                if (HuongZoom == 2)
+                                if (HuongZoom == 1)
                                 {
-                                    Zoom(ref ListDrawObject[i].p1, e.Location);
-                                    ListDrawObject[i].DashReRectangle.p1 = ListDrawObject[i].p1;
+                                    Zoom(ref ListDrawObject[i].p2, e.Location);
+                                    ListDrawObject[i].DashRectangle.p2 = ListDrawObject[i].p2;
                                 }
                                 else
                                 {
-                                    if (HuongZoom == 3)
+                                    if (HuongZoom == 2)
                                     {
                                         Zoom(ref ListDrawObject[i].p1, e.Location);
-                                        ListDrawObject[i].DashReRectangle.p1 = ListDrawObject[i].p1;
+                                        ListDrawObject[i].DashRectangle.p1 = ListDrawObject[i].p1;
                                     }
                                     else
                                     {
-                                        if (HuongZoom == 4)
+                                        if (HuongZoom == 3)
                                         {
-                                            Zoom(ref ListDrawObject[i].p2, e.Location);
-                                            ListDrawObject[i].DashReRectangle.p2 = ListDrawObject[i].p2;
+                                            Zoom(ref ListDrawObject[i].p1, e.Location);
+                                            ListDrawObject[i].DashRectangle.p1 = ListDrawObject[i].p1;
+                                        }
+                                        else
+                                        {
+                                            if (HuongZoom == 4)
+                                            {
+                                                Zoom(ref ListDrawObject[i].p2, e.Location);
+                                                ListDrawObject[i].DashRectangle.p2 = ListDrawObject[i].p2;
+                                            }
                                         }
                                     }
                                 }
@@ -649,8 +788,8 @@ namespace Bai_3
                     {
                         DrawObject Temp = ListDrawObject[i];
                         XacDinhLaiViTri(ref Temp, e.Location);
-                        Temp.DashReRectangle.p1 = Temp.p1;
-                        Temp.DashReRectangle.p2 = Temp.p2;
+                        Temp.DashRectangle.p1 = Temp.p1;
+                        Temp.DashRectangle.p2 = Temp.p2;
                         ListDrawObject[i] = Temp;
                     }
                 }
@@ -664,31 +803,43 @@ namespace Bai_3
                     {
                         if (ListDrawObject[i].BeChosen == true)
                         {
-                            if (HuongZoom == 1)
+                            if (ListDrawObject[i].PointArray != null)
                             {
-                                Zoom(ref ListDrawObject[i].p2, e.Location);
-                                ListDrawObject[i].DashReRectangle.p2 = ListDrawObject[i].p2;
+                                DrawObject Temp = ListDrawObject[i];
+                                ZoomPolygon(ref Temp, e.Location);
+                                XacDinhLaiViTriPolygonSpecial(ref Temp);
+                                Temp.DashRectangle.p1 = Temp.p1;
+                                Temp.DashRectangle.p2 = Temp.p2;
+                                ListDrawObject[i] = Temp;
                             }
                             else
                             {
-                                if (HuongZoom == 2)
+                                if (HuongZoom == 1)
                                 {
-                                    Zoom(ref ListDrawObject[i].p1, e.Location);
-                                    ListDrawObject[i].DashReRectangle.p1 = ListDrawObject[i].p1;
+                                    Zoom(ref ListDrawObject[i].p2, e.Location);
+                                    ListDrawObject[i].DashRectangle.p2 = ListDrawObject[i].p2;
                                 }
                                 else
                                 {
-                                    if (HuongZoom == 3)
+                                    if (HuongZoom == 2)
                                     {
                                         Zoom(ref ListDrawObject[i].p1, e.Location);
-                                        ListDrawObject[i].DashReRectangle.p1 = ListDrawObject[i].p1;
+                                        ListDrawObject[i].DashRectangle.p1 = ListDrawObject[i].p1;
                                     }
                                     else
                                     {
-                                        if (HuongZoom == 4)
+                                        if (HuongZoom == 3)
                                         {
-                                            Zoom(ref ListDrawObject[i].p2, e.Location);
-                                            ListDrawObject[i].DashReRectangle.p2 = ListDrawObject[i].p2;
+                                            Zoom(ref ListDrawObject[i].p1, e.Location);
+                                            ListDrawObject[i].DashRectangle.p1 = ListDrawObject[i].p1;
+                                        }
+                                        else
+                                        {
+                                            if (HuongZoom == 4)
+                                            {
+                                                Zoom(ref ListDrawObject[i].p2, e.Location);
+                                                ListDrawObject[i].DashRectangle.p2 = ListDrawObject[i].p2;
+                                            }
                                         }
                                     }
                                 }
@@ -710,7 +861,7 @@ namespace Bai_3
                 ListDrawObject[i].Fill(gp, ListDrawObject[i].MyBrush);
                 if (this.ListDrawObject[i].BeChosen == true)
                 {
-                    this.ListDrawObject[i].DashReRectangle.Draw(gp, ListDrawObject[i].DashReRectangle.MyPen);
+                    this.ListDrawObject[i].DashRectangle.Draw(gp, ListDrawObject[i].DashRectangle.MyPen);
                 }
             }
             if (IsPolygon == true)
@@ -732,7 +883,7 @@ namespace Bai_3
             public PointF MostLeft;
             public PointF MostRight;
             public PointF[] PointArray;
-            public cRectangle DashReRectangle; 
+            public cRectangle DashRectangle; 
             public Color MyColor = Color.Black;
             public Pen MyPen;
             public Brush MyBrush;
@@ -848,6 +999,16 @@ namespace Bai_3
             {
                 gp.FillPolygon(MyBrush, this.PointArray);
             }
+        }
+
+        private void ColorPen_Panel_Click(object sender, EventArgs e)
+        {
+            //DialogResult result = Pen_ColorDialog.ShowDialog();
+            //if (result == DialogResult.OK)
+            //{
+            //    TempColor = Pen_ColorDialog.Color;
+            //    ColorPen_Panel.BackColor = Pen_ColorDialog.Color;
+            //}
         }
     }
 }
