@@ -116,6 +116,10 @@ namespace BasicPaint
             NumberOfObject = 9;
         }
 
+        private void Arc_Button_Click(object sender, EventArgs e)
+        {
+            NumberOfObject = 10;
+        }
         private void DeleteAll_Button_Click(object sender, EventArgs e)
         {
             ListDrawObject.Clear();
@@ -124,9 +128,9 @@ namespace BasicPaint
         {
             float kcx = B.X - A.X;
             float kcy = B.Y - A.Y;
-            if (kcx > 0)
+            if (kcx >= 0)
             {
-                if (kcy > 0)
+                if (kcy >= 0)
                 {
                     if (E.X < B.X - 2 && E.X > A.X + 2 && E.Y < B.Y - 2 && E.Y > A.Y + 2)
                     {
@@ -143,7 +147,7 @@ namespace BasicPaint
             }
             else
             {
-                if (kcy > 0)
+                if (kcy >= 0)
                 {
                     if (E.X > B.X + 2 && E.X < A.X - 2 && E.Y < B.Y - 2 && E.Y > A.Y + 2)
                     {
@@ -164,11 +168,11 @@ namespace BasicPaint
         {
             float kcx = B.X - A.X;
             float kcy = B.Y - A.Y;
-            if (kcx > 0)
+            if (kcx >= 0)
             {
-                if (kcy > 0)
+                if (kcy >= 0)
                 {
-                    if (E.Y <= B.Y + 2 && E.Y >= B.Y - 2 && E.X <= B.X + 1 && E.X >= A.X - 1)
+                    if (E.Y <= B.Y + 2 && E.Y >= B.Y - 2 && E.X >= A.X - 1 && E.X <= B.X + 1 )
                     {
                         HuongZoom = 1;
                         return 1;
@@ -198,31 +202,106 @@ namespace BasicPaint
                         }
                     }
                 }
-                //else
-                //{
-                //    if (E.X < B.X - 1 && E.X > A.X + 1 && E.Y > B.Y + 1 && E.Y < A.Y - 1)
-                //    {
-                //        return true;
-                //    }
-                //}
+                else
+                {
+                    if (E.Y <= B.Y + 2 && E.Y >= B.Y - 2 && E.X >= A.X - 1 && E.X <= B.X + 1)
+                    {
+                        HuongZoom = 1;
+                        return 1;
+                    }
+                    else
+                    {
+                        if (E.Y <= A.Y + 2 && E.Y >= A.Y - 2 && E.X >= A.X - 1 && E.X <= B.X + 1)
+                        {                            
+                            HuongZoom = 2;
+                            return 2;
+                        }
+                        else
+                        {
+                            if (E.X <= A.X + 2 && E.X >= A.X - 2 && E.Y <= A.Y + 1 && E.Y >= B.Y - 1)
+                            {
+                                HuongZoom = 3;
+                                return 3;
+                            }
+                            else
+                            {
+                                if (E.X <= B.X + 2 && E.X >= B.X - 2 && E.Y <= A.Y + 1 && E.Y >= B.Y - 1)
+                                {
+                                    HuongZoom = 4;
+                                    return 4;
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            //else
-            //{
-            //    if (kcy > 0)
-            //    {
-            //        if (E.X > B.X + 1 && E.X < A.X - 1 && E.Y < B.Y - 1 && E.Y > A.Y + 1)
-            //        {
-            //            return true;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (E.X > B.X + 1 && E.X < A.X - 1 && E.Y > B.Y - 1 && E.Y < A.Y + 1)
-            //        {
-            //            return true;
-            //        }
-            //    }
-            //}
+            else
+            {
+                if (kcy >= 0)
+                {
+                    if (E.Y <= B.Y + 2 && E.Y >= B.Y - 2 && E.X >= B.X- 1 && E.X <= A.X + 1)
+                    {
+                        HuongZoom = 1;
+                        return 1;
+                    }
+                    else
+                    {
+                        if (E.Y <= A.Y + 2 && E.Y >= A.Y - 2 && E.X >= B.X - 1 && E.X <= A.X + 1)
+                        {
+                            HuongZoom = 2;
+                            return 2;
+                        }
+                        else
+                        {
+                            if (E.X <= A.X + 2 && E.X >= A.X - 2 && E.Y <= B.Y + 1 && E.Y >= A.Y - 1)
+                            {
+                                HuongZoom = 3;
+                                return 3;
+                            }
+                            else
+                            {
+                                if (E.X <= B.X + 2 && E.X >= B.X - 2 && E.Y <= B.Y + 1 && E.Y >= A.Y - 1)
+                                {     
+                                    HuongZoom = 4;
+                                    return 4;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (E.Y <= A.Y + 2 && E.Y >= A.Y - 2 && E.X >= B.X - 1 && E.X <= A.X + 1)
+                    {
+                        HuongZoom = 2;
+                        return 2;
+                    }
+                    else
+                    {
+                        if (E.Y <= B.Y + 2 && E.Y >= B.Y - 2 && E.X >= B.X - 1 && E.X <= A.X + 1)
+                        {
+                            HuongZoom = 1;
+                            return 1;
+                        }
+                        else
+                        {
+                            if (E.X <= A.X + 2 && E.X >= A.X - 2 && E.Y <= A.Y + 1 && E.Y >= B.Y - 1)
+                            {
+                                HuongZoom = 3;
+                                return 3;
+                            }
+                            else
+                            {
+                                if (E.X <= B.X + 2 && E.X >= B.X - 2 && E.Y <= A.Y + 1 && E.Y >= B.Y - 1)
+                                {
+                                    HuongZoom = 4;
+                                    return 4;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             return 0;
         }
         public void KhoiTaoOb(ref DrawObject MyObject, PointF e)
@@ -554,7 +633,10 @@ namespace BasicPaint
         }
         private void groupToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            for (int i = 0; i < ListDrawObject.Count;i++)
+            {
+                ListDrawObject[i].BeChosen = true;
+            }
         }
         private void ungroupToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -566,6 +648,7 @@ namespace BasicPaint
             {
                 if (NumberOfObject == 0)
                 {
+               
                     bool Exist = false;
                     for (int i = 0; i < ListDrawObject.Count; i++)
                     {
@@ -588,9 +671,20 @@ namespace BasicPaint
                         {
                             if (ListDrawObject[i].BeChosen == true && KiemTraZoom(ListDrawObject[i].p1, ListDrawObject[i].p2, e.Location) != 0)
                             {
+                                if (MultiSelect == false)
+                                {
+                                    for (int j = 0; j < ListDrawObject.Count; j++)
+                                    {
+                                        if (j != i)
+                                        {
+                                            ListDrawObject[j].BeChosen = false;
+                                        }
+                                    }
+                                }
                                 StartPointSpecial = e.Location;
                                 Exist = true;
                                 IsStartZoom = true;
+                                break;
                             }
                         }
                     }
@@ -666,6 +760,12 @@ namespace BasicPaint
                                 InitializeComponentOfPolygon(e.Location);
                                 break;
                             }
+                        case 10:
+                            {
+                                DrawObject MyOject = new cArc();
+                                KhoiTaoOb(ref MyOject, e.Location);
+                                break;
+                            }
                     }
                 }
             }
@@ -716,46 +816,7 @@ namespace BasicPaint
         {
             if (this.IsStart == true)
             {
-                switch (NumberOfObject)
-                {
-                    case 1:
-                        {
-                            this.ListDrawObject[this.ListDrawObject.Count - 1].p2 = e.Location;
-                            break;
-                        }
-                    case 2:
-                        {
-                            this.ListDrawObject[this.ListDrawObject.Count - 1].p2 = e.Location;
-                            break;
-                        }
-
-                    case 3:
-                        {
-                            this.ListDrawObject[this.ListDrawObject.Count - 1].p2 = e.Location;
-                            break;
-                        }
-
-                    case 4:
-                        {
-                            this.ListDrawObject[this.ListDrawObject.Count - 1].p2 = e.Location;
-                            break;
-                        }
-                    case 5:
-                        {
-                            this.ListDrawObject[this.ListDrawObject.Count - 1].p2 = e.Location;
-                            break;
-                        }
-                    case 6:
-                        {
-                            this.ListDrawObject[this.ListDrawObject.Count - 1].p2 = e.Location;
-                            break;
-                        }
-                    case 7:
-                        {
-                            this.ListDrawObject[this.ListDrawObject.Count - 1].p2 = e.Location;
-                            break;
-                        }
-                }
+                this.ListDrawObject[this.ListDrawObject.Count - 1].p2 = e.Location;
             }
             if (NumberOfObject == 8 || NumberOfObject == 9)
             {
@@ -1006,18 +1067,75 @@ namespace BasicPaint
         {
             public override void Draw(Graphics gp, Pen MyPen)
             {
-                gp.DrawRectangle(MyPen, p1.X, p1.Y, p2.X - p1.X, p2.Y - p1.Y);
+                if (p2.X >= p1.X && p2.Y >= p1.Y)
+                {
+                    gp.DrawRectangle(MyPen, p1.X, p1.Y, p2.X - p1.X, p2.Y - p1.Y);
+                }
+                if (p2.X >= p1.X && p2.Y < p1.Y)
+                {
+                    gp.DrawRectangle(MyPen, p1.X, p2.Y, p2.X - p1.X, p1.Y - p2.Y);
+                }
+                if (p2.X < p1.X && p2.Y >= p1.Y)
+                {
+                    gp.DrawRectangle(MyPen, p2.X, p1.Y, p1.X - p2.X, p2.Y - p1.Y);
+                }
+                if (p2.X < p1.X && p2.Y < p1.Y)
+                {
+                    gp.DrawRectangle(MyPen, p2.X, p2.Y, p1.X - p2.X, p1.Y - p2.Y);
+                }
             }
             public override void Fill(Graphics gp, Brush MyBrush)
             {
 
             }
         }
+
+        public class cSolidRectangle : DrawObject
+        {
+            public override void Draw(Graphics gp, Pen MyPen)
+            {
+
+            }
+            public override void Fill(Graphics gp, Brush myBrush)
+            {
+                if (p2.X >= p1.X && p2.Y >= p1.Y)
+                {
+                    gp.FillRectangle(MyBrush, p1.X, p1.Y, p2.X - p1.X, p2.Y - p1.Y);
+                }
+                if (p2.X >= p1.X && p2.Y < p1.Y)
+                {
+                    gp.FillRectangle(MyBrush, p1.X, p2.Y, p2.X - p1.X, p1.Y - p2.Y);
+                }
+                if (p2.X < p1.X && p2.Y >= p1.Y)
+                {
+                    gp.FillRectangle(MyBrush, p2.X, p1.Y, p1.X - p2.X, p2.Y - p1.Y);
+                }
+                if (p2.X < p1.X && p2.Y < p1.Y)
+                {
+                    gp.FillRectangle(MyBrush, p2.X, p2.Y, p1.X - p2.X, p1.Y - p2.Y);
+                }
+            }
+        }
         public class cEcclipe : DrawObject
         {
             public override void Draw(Graphics gp, Pen MyPen)
             {
-                gp.DrawEllipse(MyPen, p1.X, p1.Y, p2.X - p1.X, p2.Y - p1.Y);
+                if (p2.X >= p1.X && p2.Y >= p1.Y)
+                {
+                    gp.DrawEllipse(MyPen, p1.X, p1.Y, p2.X - p1.X, p2.Y - p1.Y);
+                }
+                if (p2.X >= p1.X && p2.Y < p1.Y)
+                {
+                    gp.DrawEllipse(MyPen, p1.X, p2.Y, p2.X - p1.X, p1.Y - p2.Y);
+                }
+                if (p2.X < p1.X && p2.Y >= p1.Y)
+                {
+                    gp.DrawEllipse(MyPen, p2.X, p1.Y, p1.X - p2.X, p2.Y - p1.Y);
+                }
+                if (p2.X < p1.X && p2.Y < p1.Y)
+                {
+                    gp.DrawEllipse(MyPen, p2.X, p2.Y, p1.X - p2.X, p1.Y - p2.Y);
+                }
             }
             public override void Fill(Graphics gp, Brush MyBrush)
             {
@@ -1033,31 +1151,58 @@ namespace BasicPaint
             }
             public override void Fill(Graphics gp, Brush myBrush)
             {
-                gp.FillEllipse(myBrush, p1.X, p1.Y, p2.X - p1.X, p2.Y - p1.Y);
+                if (p2.X >= p1.X && p2.Y >= p1.Y)
+                {
+                    gp.FillEllipse(MyBrush, p1.X, p1.Y, p2.X - p1.X, p2.Y - p1.Y);
+                }
+                if (p2.X >= p1.X && p2.Y < p1.Y)
+                {
+                    gp.FillEllipse(MyBrush, p1.X, p2.Y, p2.X - p1.X, p1.Y - p2.Y);
+                }
+                if (p2.X < p1.X && p2.Y >= p1.Y)
+                {
+                    gp.FillEllipse(MyBrush, p2.X, p1.Y, p1.X - p2.X, p2.Y - p1.Y);
+                }
+                if (p2.X < p1.X && p2.Y < p1.Y)
+                {
+                    gp.FillEllipse(MyBrush, p2.X, p2.Y, p1.X - p2.X, p1.Y - p2.Y);
+                }
             }
 
         }
 
-        public class cSolidRectangle : DrawObject
-        {
-            public override void Draw(Graphics gp, Pen MyPen)
-            {
-
-            }
-            public override void Fill(Graphics gp, Brush myBrush)
-            {
-                gp.FillRectangle(myBrush, p1.X, p1.Y, p2.X - p1.X, p2.Y - p1.Y);
-            }
-        }
         public class cCircle : DrawObject
         {
             public override void Draw(Graphics gp, Pen MyPen)
             {
-                float a = p2.X - p1.X;
-                float b = p2.Y - p1.Y;
-                double radius = Math.Sqrt((a * a) + (b * b)) / 2;
-                gp.DrawEllipse(MyPen, p1.X, p1.Y, (float)(2 * radius), (float)(2 * radius));
-
+                if (p2.X >= p1.X && p2.Y >= p1.Y)
+                {
+                    float a = p2.X - p1.X;
+                    float b = p2.Y - p1.Y;
+                    double radius = Math.Sqrt((a * a) + (b * b)) / 2;
+                    gp.DrawEllipse(MyPen, p1.X, p1.Y, (float)(2 * radius), (float)(2 * radius));
+                }
+                if (p2.X >= p1.X && p2.Y < p1.Y)
+                {
+                    float a = p2.X - p1.X;
+                    float b = p1.Y - p2.Y;
+                    double radius = Math.Sqrt((a * a) + (b * b)) / 2;
+                    gp.DrawEllipse(MyPen, p1.X, p2.Y, (float)(2 * radius), (float)(2 * radius));
+                }
+                if (p2.X < p1.X && p2.Y >= p1.Y)
+                {
+                    float a = p1.X - p2.X;
+                    float b = p2.Y - p1.Y;
+                    double radius = Math.Sqrt((a * a) + (b * b)) / 2;
+                    gp.DrawEllipse(MyPen, p2.X, p1.Y, (float)(2 * radius), (float)(2 * radius));
+                }
+                if (p2.X < p1.X && p2.Y < p1.Y)
+                {
+                    float a = p1.X - p2.X;
+                    float b = p1.Y - p2.Y;
+                    double radius = Math.Sqrt((a * a) + (b * b)) / 2;
+                    gp.DrawEllipse(MyPen, p2.X, p2.Y, (float)(2 * radius), (float)(2 * radius));
+                }
             }
             public override void Fill(Graphics gp, Brush MyBrush)
             {
@@ -1072,10 +1217,34 @@ namespace BasicPaint
             }
             public override void Fill(Graphics gp, Brush MyBrush)
             {
-                float a = p2.X - p1.X;
-                float b = p2.Y - p1.Y;
-                double radius = Math.Sqrt((a * a) + (b * b)) / 2;
-                gp.FillEllipse(MyBrush, p1.X, p1.Y, (float)(2 * radius), (float)(2 * radius));
+                if (p2.X >= p1.X && p2.Y >= p1.Y)
+                {
+                    float a = p2.X - p1.X;
+                    float b = p2.Y - p1.Y;
+                    double radius = Math.Sqrt((a * a) + (b * b)) / 2;
+                    gp.FillEllipse(MyBrush, p1.X, p1.Y, (float)(2 * radius), (float)(2 * radius));
+                }
+                if (p2.X >= p1.X && p2.Y < p1.Y)
+                {
+                    float a = p2.X - p1.X;
+                    float b = p1.Y - p2.Y;
+                    double radius = Math.Sqrt((a * a) + (b * b)) / 2;
+                    gp.FillEllipse(MyBrush, p1.X, p2.Y, (float)(2 * radius), (float)(2 * radius));
+                }
+                if (p2.X < p1.X && p2.Y >= p1.Y)
+                {
+                    float a = p1.X - p2.X;
+                    float b = p2.Y - p1.Y;
+                    double radius = Math.Sqrt((a * a) + (b * b)) / 2;
+                    gp.FillEllipse(MyBrush, p2.X, p1.Y, (float)(2 * radius), (float)(2 * radius));
+                }
+                if (p2.X < p1.X && p2.Y < p1.Y)
+                {
+                    float a = p1.X - p2.X;
+                    float b = p1.Y - p2.Y;
+                    double radius = Math.Sqrt((a * a) + (b * b)) / 2;
+                    gp.FillEllipse(MyBrush, p2.X, p2.Y, (float)(2 * radius), (float)(2 * radius));
+                }
             }
         }
         public class cPolygon : DrawObject
@@ -1100,15 +1269,46 @@ namespace BasicPaint
                 gp.FillPolygon(MyBrush, this.PointArray);
             }
         }
-        public class cGroupObject: DrawObject
+        public class cArc : DrawObject
         {
             public override void Draw(Graphics gp, Pen MyPen)
             {
-                
+                if (p2.Y >= p1.Y && p2.X >= p1.X)
+                {
+                    if (p2.X - p1.X != 0 && p2.Y - p1.Y != 0)
+                    {
+                        gp.DrawArc(MyPen, p1.X, p1.Y, p2.X - p1.X, p2.Y - p1.Y, 270, 90);
+                        return;
+                    }
+                }
+                if (p2.Y < p1.Y && p2.X >= p1.X)
+                {
+                    if (p2.X - p1.X != 0 && p1.Y - p2.Y != 0)
+                    {
+                        gp.DrawArc(MyPen, p1.X, p2.Y, p2.X - p1.X, p1.Y - p2.Y, 90, -90);
+                        return;
+                    }
+                }
+                if (p2.Y > p1.Y && p2.X < p1.X)
+                {
+                    if (p1.X - p2.X != 0 && p2.Y - p1.Y != 0)
+                    {
+                        gp.DrawArc(MyPen, p2.X, p1.Y, p1.X - p2.X, p2.Y - p1.Y, 270, -90);
+                        return;
+                    }
+                }
+                if (p2.Y < p1.Y && p2.X < p1.X)
+                {
+                    if (p1.X - p2.X != 0 && p1.Y - p2.Y != 0)
+                    {
+                        gp.DrawArc(MyPen, p2.X, p2.Y, p1.X - p2.X, p1.Y - p2.Y, 90, 90);
+                        return;
+                    }
+                }
             }
             public override void Fill(Graphics gp, Brush MyBrush)
             {
-               
+
             }
         }
     }

@@ -59,6 +59,9 @@
             this.ungroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Control_Panel = new System.Windows.Forms.Panel();
             this.Control_Label = new System.Windows.Forms.Label();
+            this.Arc_Button = new System.Windows.Forms.Button();
+            this.Color_Brush_Label = new System.Windows.Forms.Label();
+            this.Color_Pen_Label = new System.Windows.Forms.Label();
             this.Draw_Panel.SuspendLayout();
             this.Brush_Panel.SuspendLayout();
             this.Pen_Panel.SuspendLayout();
@@ -71,6 +74,7 @@
             // Draw_Panel
             // 
             this.Draw_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Draw_Panel.Controls.Add(this.Arc_Button);
             this.Draw_Panel.Controls.Add(this.Draw_Label);
             this.Draw_Panel.Controls.Add(this.Line_Button);
             this.Draw_Panel.Controls.Add(this.Ecclipe_Button);
@@ -83,7 +87,7 @@
             this.Draw_Panel.Controls.Add(this.SolidCircle_Button);
             this.Draw_Panel.Location = new System.Drawing.Point(12, 12);
             this.Draw_Panel.Name = "Draw_Panel";
-            this.Draw_Panel.Size = new System.Drawing.Size(126, 297);
+            this.Draw_Panel.Size = new System.Drawing.Size(126, 322);
             this.Draw_Panel.TabIndex = 32;
             // 
             // Draw_Label
@@ -198,6 +202,7 @@
             // Brush_Panel
             // 
             this.Brush_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Brush_Panel.Controls.Add(this.Color_Brush_Label);
             this.Brush_Panel.Controls.Add(this.Brush_Label);
             this.Brush_Panel.Controls.Add(this.ColorBrush_Panel);
             this.Brush_Panel.Location = new System.Drawing.Point(25, 583);
@@ -218,15 +223,16 @@
             // 
             this.ColorBrush_Panel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ColorBrush_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ColorBrush_Panel.Location = new System.Drawing.Point(13, 16);
+            this.ColorBrush_Panel.Location = new System.Drawing.Point(44, 15);
             this.ColorBrush_Panel.Name = "ColorBrush_Panel";
-            this.ColorBrush_Panel.Size = new System.Drawing.Size(80, 15);
+            this.ColorBrush_Panel.Size = new System.Drawing.Size(49, 15);
             this.ColorBrush_Panel.TabIndex = 0;
             this.ColorBrush_Panel.Click += new System.EventHandler(this.ColorBrush_Panel_Click);
             // 
             // Pen_Panel
             // 
             this.Pen_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Pen_Panel.Controls.Add(this.Color_Pen_Label);
             this.Pen_Panel.Controls.Add(this.ColorPen_Panel);
             this.Pen_Panel.Controls.Add(this.WidthPen_Panel);
             this.Pen_Panel.Controls.Add(this.Pen_Label);
@@ -242,9 +248,9 @@
             // 
             this.ColorPen_Panel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ColorPen_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ColorPen_Panel.Location = new System.Drawing.Point(12, 88);
+            this.ColorPen_Panel.Location = new System.Drawing.Point(44, 88);
             this.ColorPen_Panel.Name = "ColorPen_Panel";
-            this.ColorPen_Panel.Size = new System.Drawing.Size(80, 15);
+            this.ColorPen_Panel.Size = new System.Drawing.Size(53, 16);
             this.ColorPen_Panel.TabIndex = 27;
             this.ColorPen_Panel.Click += new System.EventHandler(this.ColorPen_Panel_Click);
             // 
@@ -365,6 +371,34 @@
             this.Control_Label.TabIndex = 30;
             this.Control_Label.Text = "Control";
             // 
+            // Arc_Button
+            // 
+            this.Arc_Button.Location = new System.Drawing.Point(14, 294);
+            this.Arc_Button.Name = "Arc_Button";
+            this.Arc_Button.Size = new System.Drawing.Size(99, 23);
+            this.Arc_Button.TabIndex = 22;
+            this.Arc_Button.Text = "Arc";
+            this.Arc_Button.UseVisualStyleBackColor = true;
+            this.Arc_Button.Click += new System.EventHandler(this.Arc_Button_Click);
+            // 
+            // Color_Brush_Label
+            // 
+            this.Color_Brush_Label.AutoSize = true;
+            this.Color_Brush_Label.Location = new System.Drawing.Point(4, 15);
+            this.Color_Brush_Label.Name = "Color_Brush_Label";
+            this.Color_Brush_Label.Size = new System.Drawing.Size(31, 13);
+            this.Color_Brush_Label.TabIndex = 34;
+            this.Color_Brush_Label.Text = "Color";
+            // 
+            // Color_Pen_Label
+            // 
+            this.Color_Pen_Label.AutoSize = true;
+            this.Color_Pen_Label.Location = new System.Drawing.Point(4, 88);
+            this.Color_Pen_Label.Name = "Color_Pen_Label";
+            this.Color_Pen_Label.Size = new System.Drawing.Size(31, 13);
+            this.Color_Pen_Label.TabIndex = 35;
+            this.Color_Pen_Label.Text = "Color";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -428,6 +462,9 @@
         private System.Windows.Forms.ToolStripMenuItem ungroupToolStripMenuItem;
         private System.Windows.Forms.Panel Control_Panel;
         private System.Windows.Forms.Label Control_Label;
+        private System.Windows.Forms.Button Arc_Button;
+        private System.Windows.Forms.Label Color_Brush_Label;
+        private System.Windows.Forms.Label Color_Pen_Label;
     }
 }
 
