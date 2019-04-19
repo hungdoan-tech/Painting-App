@@ -39,91 +39,10 @@ namespace BasicPaint
             bitmap = new Bitmap(Main_PictureBox.Width, Main_PictureBox.Height);
             gp = Graphics.FromImage(bitmap);
             gp.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            NumberOfObject = 1;
-            Line_Button.Focus();
-        }
-
-        private void ColorPen_Panel_Click(object sender, EventArgs e)
-        {
-            ShowDialogFlag = true;
-            if (ColorDialog.ShowDialog() == DialogResult.OK)
-            {
-                CheckPenColor = true;
-                PenColor = ColorDialog.Color;
-                ColorPen_Panel.BackColor = ColorDialog.Color;
-            }
-            ShowDialogFlag = false;
-        }
-
-        private void ColorBrush_Panel_Click(object sender, EventArgs e)
-        {
-            ShowDialogFlag = true;
-            if (ColorDialog.ShowDialog() == DialogResult.OK)
-            {
-                CheckBrushColor = true;
-                BrushColor = ColorDialog.Color;
-                ColorBrush_Panel.BackColor = ColorDialog.Color;
-            }
-            ShowDialogFlag = false;
-        }
-        private void Select_Button_Click(object sender, EventArgs e)
-        {
             NumberOfObject = 0;
         }
 
-        private void Line_Button_Click(object sender, EventArgs e)
-        {
-            NumberOfObject = 1;
-        }
-
-        private void Ecclipe_Button_Click(object sender, EventArgs e)
-        {
-            NumberOfObject = 2;
-        }
-
-        private void SolidEcclipe_Button_Click(object sender, EventArgs e)
-        {
-            NumberOfObject = 3;
-        }
-
-        private void Rectangle_Button_Click(object sender, EventArgs e)
-        {
-            NumberOfObject = 4;
-        }
-
-        private void SolidRectangle_Button_Click(object sender, EventArgs e)
-        {
-            NumberOfObject = 5;
-        }
-
-        private void Circle_Button_Click(object sender, EventArgs e)
-        {
-            NumberOfObject = 6;
-        }
-
-        private void SolidCircle_Button_Click(object sender, EventArgs e)
-        {
-            NumberOfObject = 7;
-        }
-
-        private void Polygon_Button_Click(object sender, EventArgs e)
-        {
-            NumberOfObject = 8;
-        }
-
-        private void SolidPolygon_Button_Click(object sender, EventArgs e)
-        {
-            NumberOfObject = 9;
-        }
-
-        private void Arc_Button_Click(object sender, EventArgs e)
-        {
-            NumberOfObject = 10;
-        }
-        private void DeleteAll_Button_Click(object sender, EventArgs e)
-        {
-            ListDrawObject.Clear();
-        }
+        #region Process
         public bool KiemTraDiChuyen(PointF A, PointF B, PointF E)
         {
             float kcx = B.X - A.X;
@@ -320,7 +239,21 @@ namespace BasicPaint
             MyObject.MyPen = new Pen(MyObject.MyPenColor, Convert.ToInt32(Width_NumericUpDown.Value));
             if (Dash_RadioButton.Checked == true)
             {
-                MyObject.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                if (DashStyle_ComboBox.SelectedItem == "DashDotDot")
+                {
+                    MyObject.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.DashDotDot;
+                }
+                else
+                {
+                    if (DashStyle_ComboBox.SelectedItem == "Dot")
+                    {
+                        MyObject.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+                    }
+                    else
+                    {
+                        MyObject.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                    }
+                }
             }
             MyObject.MyBrush = new SolidBrush(MyObject.MyBrushColor);
 
@@ -360,7 +293,21 @@ namespace BasicPaint
                 MyObject.MyPen = new Pen(MyObject.MyPenColor, Convert.ToUInt32(Width_NumericUpDown.Value));
                 if (Dash_RadioButton.Checked == true)
                 {
-                    MyObject.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                    if (DashStyle_ComboBox.SelectedItem == "DashDotDot")
+                    {
+                        MyObject.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.DashDotDot;
+                    }
+                    else
+                    {
+                        if (DashStyle_ComboBox.SelectedItem == "Dot")
+                        {
+                            MyObject.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+                        }
+                        else
+                        {
+                            MyObject.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                        }
+                    }
                 }
                 this.ListLinePolygon.Add(MyObject);
                 PointListPolygon.Add(e);
@@ -403,7 +350,21 @@ namespace BasicPaint
             MyObject.MyPen = new Pen(MyObject.MyPenColor, Convert.ToUInt32(Width_NumericUpDown.Value));
             if (Dash_RadioButton.Checked == true)
             {
-                MyObject.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                if (DashStyle_ComboBox.SelectedItem == "DashDotDot")
+                {
+                    MyObject.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.DashDotDot;
+                }
+                else
+                {
+                    if (DashStyle_ComboBox.SelectedItem == "Dot")
+                    {
+                        MyObject.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+                    }
+                    else
+                    {
+                        MyObject.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                    }
+                }
             }
             MyObject.MyBrush = new SolidBrush(MyObject.MyBrushColor);
             XacDinhLaiViTriPolygon(ref MyObject);
@@ -586,42 +547,7 @@ namespace BasicPaint
             A.p1.Y = MinY.Y;
             A.p2.X = MaxX.X;
             A.p2.Y = MaxY.Y;
-        }
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (NumberOfObject == 0)
-            {
-                if (e.Control)
-                {
-                    MultiSelect = true;
-                }
-                if (e.KeyCode == Keys.Delete)
-                {
-                    bool XoaHet;
-                    do
-                    {
-                        XoaHet = true;
-                        for (int i = 0; i < ListDrawObject.Count; i++)
-                        {
-                            if (ListDrawObject[i].BeChosen == true)
-                            {
-                                XoaHet = false;
-                                ListDrawObject.Remove(ListDrawObject[i]);
-                            }
-                        }
-                    } while (XoaHet != true);
-                }
-            }
-        }
-
-        private void Form1_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyValue == 17)
-            {
-                MultiSelect = false;
-            }
-        }
-
+        }      
         private void DeQuyZooomGroup(ref DrawObject A, PointF e)
         {
             if (A.ListGroup != null)
@@ -754,7 +680,6 @@ namespace BasicPaint
                 A = Temp;
             }
         }
-
         private void XacDinhViTriGroupObject(ref DrawObject A)
         {
             float MaxXP1 = A.ListGroup[0].p1.X;
@@ -803,6 +728,128 @@ namespace BasicPaint
             A.p1.Y = MaxYP1;
             A.p2.X = MaxXP2;
             A.p2.Y = MaxYP2;
+        }
+        #endregion
+
+        #region Event
+        private void ColorPen_Panel_Click(object sender, EventArgs e)
+        {
+            ShowDialogFlag = true;
+            if (ColorDialog.ShowDialog() == DialogResult.OK)
+            {
+                CheckPenColor = true;
+                PenColor = ColorDialog.Color;
+                ColorPen_Panel.BackColor = ColorDialog.Color;
+            }
+            ShowDialogFlag = false;
+        }
+        private void ColorBrush_Panel_Click(object sender, EventArgs e)
+        {
+            ShowDialogFlag = true;
+            if (ColorDialog.ShowDialog() == DialogResult.OK)
+            {
+                CheckBrushColor = true;
+                BrushColor = ColorDialog.Color;
+                ColorBrush_Panel.BackColor = ColorDialog.Color;
+            }
+            ShowDialogFlag = false;
+        }
+        private void Select_Button_Click(object sender, EventArgs e)
+        {
+            NumberOfObject = 0;
+        }
+        private void Line_Button_Click(object sender, EventArgs e)
+        {
+            NumberOfObject = 1;
+        }
+        private void Ecclipe_Button_Click(object sender, EventArgs e)
+        {
+            NumberOfObject = 2;
+        }
+        private void SolidEcclipe_Button_Click(object sender, EventArgs e)
+        {
+            NumberOfObject = 3;
+        }
+        private void Rectangle_Button_Click(object sender, EventArgs e)
+        {
+            NumberOfObject = 4;
+        }
+        private void SolidRectangle_Button_Click(object sender, EventArgs e)
+        {
+            NumberOfObject = 5;
+        }
+        private void Circle_Button_Click(object sender, EventArgs e)
+        {
+            NumberOfObject = 6;
+        }
+        private void SolidCircle_Button_Click(object sender, EventArgs e)
+        {
+            NumberOfObject = 7;
+        }
+        private void Polygon_Button_Click(object sender, EventArgs e)
+        {
+            NumberOfObject = 8;
+        }
+        private void SolidPolygon_Button_Click(object sender, EventArgs e)
+        {
+            NumberOfObject = 9;
+        }
+        private void Arc_Button_Click(object sender, EventArgs e)
+        {
+            NumberOfObject = 10;
+        }
+        private void DeleteAll_Button_Click(object sender, EventArgs e)
+        {
+            ListDrawObject.Clear();
+        }
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (NumberOfObject == 0)
+            {
+                if (e.Control)
+                {
+                    MultiSelect = true;
+                }
+                if (e.KeyCode == Keys.Delete)
+                {
+                    bool XoaHet;
+                    do
+                    {
+                        XoaHet = true;
+                        for (int i = 0; i < ListDrawObject.Count; i++)
+                        {
+                            if (ListDrawObject[i].BeChosen == true)
+                            {
+                                XoaHet = false;
+                                ListDrawObject.Remove(ListDrawObject[i]);
+                            }
+                        }
+                    } while (XoaHet != true);
+                }
+            }
+        }
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 17)
+            {
+                MultiSelect = false;
+            }
+        }
+        private void Delete_Button_Click(object sender, EventArgs e)
+        {
+            bool flag;
+            do
+            {
+                flag = false;
+                for (int i = 0; i < ListDrawObject.Count; i++)
+                {
+                    if (ListDrawObject[i].BeChosen == true)
+                    {
+                        ListDrawObject.RemoveAt(i);
+                        flag = true;
+                    }
+                }
+            } while (flag == true);
         }
         private void groupToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -932,11 +979,11 @@ namespace BasicPaint
                                     ListDrawObject[j].BeChosen = false;
                                 }
                             }
-                            Exist = true;
-                            ListDrawObject[i].BeChosen = true;
-                            IsStartChange = true;
-                            StartPointSpecial = e.Location;
-                            break;
+                                Exist = true;
+                                ListDrawObject[i].BeChosen = true;
+                                IsStartChange = true;
+                                StartPointSpecial = e.Location;
+                                break;
                         }
                         else
                         {
@@ -1082,12 +1129,14 @@ namespace BasicPaint
                 }
             }
         }
-
         private void Main_PictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             if (this.IsStart == true)
             {
-                this.ListDrawObject[this.ListDrawObject.Count - 1].p2 = e.Location;
+                if (ListDrawObject.Count != 0)
+                {
+                    this.ListDrawObject[this.ListDrawObject.Count - 1].p2 = e.Location;
+                }
             }
             if (NumberOfObject == 8 || NumberOfObject == 9)
             {
@@ -1127,7 +1176,6 @@ namespace BasicPaint
             }
             this.Main_PictureBox.Refresh();
         }
-
         private void Main_PictureBox_MouseUp(object sender, MouseEventArgs e)
         {
             if (IsStart == true)
@@ -1199,7 +1247,6 @@ namespace BasicPaint
             }
             this.Main_PictureBox.Refresh();
         }
-
         private void Main_PictureBox_Paint(object sender, PaintEventArgs e)
         {
             if (!ShowDialogFlag)
@@ -1224,6 +1271,9 @@ namespace BasicPaint
                 Main_PictureBox.Image = bitmap;
             }
         }
+        #endregion
+
+        #region Class
         public abstract class DrawObject
         {
             public PointF p1;
@@ -1262,7 +1312,6 @@ namespace BasicPaint
                 }
             }
         }
-           
         public class cLine : DrawObject
         {
             public override void Draw(Graphics gp, Pen MyPen)
@@ -1300,7 +1349,6 @@ namespace BasicPaint
 
             }
         }
-
         public class cSolidRectangle : DrawObject
         {
             public override void Draw(Graphics gp, Pen MyPen)
@@ -1353,7 +1401,6 @@ namespace BasicPaint
 
             }
         }
-
         public class cSolidEcclipe : DrawObject
         {
             public override void Draw(Graphics gp, Pen MyPen)
@@ -1381,7 +1428,6 @@ namespace BasicPaint
             }
 
         }
-
         public class cCircle : DrawObject
         {
             public override void Draw(Graphics gp, Pen MyPen)
@@ -1522,5 +1568,6 @@ namespace BasicPaint
 
             }
         }
+        #endregion
     }
 }

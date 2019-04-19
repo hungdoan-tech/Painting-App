@@ -62,6 +62,8 @@
             this.ungroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Control_Panel = new System.Windows.Forms.Panel();
             this.Control_Label = new System.Windows.Forms.Label();
+            this.Delete_Button = new System.Windows.Forms.Button();
+            this.DashStyle_ComboBox = new System.Windows.Forms.ComboBox();
             this.Draw_Panel.SuspendLayout();
             this.Brush_Panel.SuspendLayout();
             this.Pen_Panel.SuspendLayout();
@@ -85,9 +87,9 @@
             this.Draw_Panel.Controls.Add(this.Circle_Button);
             this.Draw_Panel.Controls.Add(this.Polygon_Button);
             this.Draw_Panel.Controls.Add(this.SolidCircle_Button);
-            this.Draw_Panel.Location = new System.Drawing.Point(3, 0);
+            this.Draw_Panel.Location = new System.Drawing.Point(4, 6);
             this.Draw_Panel.Name = "Draw_Panel";
-            this.Draw_Panel.Size = new System.Drawing.Size(126, 322);
+            this.Draw_Panel.Size = new System.Drawing.Size(126, 326);
             this.Draw_Panel.TabIndex = 32;
             // 
             // Arc_Button
@@ -201,7 +203,7 @@
             // 
             // DeleteAll_Button
             // 
-            this.DeleteAll_Button.Location = new System.Drawing.Point(9, 46);
+            this.DeleteAll_Button.Location = new System.Drawing.Point(9, 73);
             this.DeleteAll_Button.Name = "DeleteAll_Button";
             this.DeleteAll_Button.Size = new System.Drawing.Size(100, 25);
             this.DeleteAll_Button.TabIndex = 28;
@@ -215,7 +217,7 @@
             this.Brush_Panel.Controls.Add(this.Color_Brush_Label);
             this.Brush_Panel.Controls.Add(this.Brush_Label);
             this.Brush_Panel.Controls.Add(this.ColorBrush_Panel);
-            this.Brush_Panel.Location = new System.Drawing.Point(9, 572);
+            this.Brush_Panel.Location = new System.Drawing.Point(8, 592);
             this.Brush_Panel.Name = "Brush_Panel";
             this.Brush_Panel.Size = new System.Drawing.Size(121, 45);
             this.Brush_Panel.TabIndex = 31;
@@ -223,7 +225,7 @@
             // Color_Brush_Label
             // 
             this.Color_Brush_Label.AutoSize = true;
-            this.Color_Brush_Label.Location = new System.Drawing.Point(4, 15);
+            this.Color_Brush_Label.Location = new System.Drawing.Point(9, 12);
             this.Color_Brush_Label.Name = "Color_Brush_Label";
             this.Color_Brush_Label.Size = new System.Drawing.Size(31, 13);
             this.Color_Brush_Label.TabIndex = 34;
@@ -232,7 +234,7 @@
             // Brush_Label
             // 
             this.Brush_Label.AutoSize = true;
-            this.Brush_Label.Location = new System.Drawing.Point(1, -1);
+            this.Brush_Label.Location = new System.Drawing.Point(-1, -1);
             this.Brush_Label.Name = "Brush_Label";
             this.Brush_Label.Size = new System.Drawing.Size(34, 13);
             this.Brush_Label.TabIndex = 1;
@@ -242,7 +244,7 @@
             // 
             this.ColorBrush_Panel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ColorBrush_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ColorBrush_Panel.Location = new System.Drawing.Point(44, 15);
+            this.ColorBrush_Panel.Location = new System.Drawing.Point(46, 12);
             this.ColorBrush_Panel.Name = "ColorBrush_Panel";
             this.ColorBrush_Panel.Size = new System.Drawing.Size(53, 13);
             this.ColorBrush_Panel.TabIndex = 0;
@@ -251,6 +253,7 @@
             // Pen_Panel
             // 
             this.Pen_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Pen_Panel.Controls.Add(this.DashStyle_ComboBox);
             this.Pen_Panel.Controls.Add(this.Color_Pen_Label);
             this.Pen_Panel.Controls.Add(this.ColorPen_Panel);
             this.Pen_Panel.Controls.Add(this.WidthPen_Panel);
@@ -258,9 +261,9 @@
             this.Pen_Panel.Controls.Add(this.Dash_RadioButton);
             this.Pen_Panel.Controls.Add(this.Line_RadioButton);
             this.Pen_Panel.Controls.Add(this.Width_NumericUpDown);
-            this.Pen_Panel.Location = new System.Drawing.Point(8, 448);
+            this.Pen_Panel.Location = new System.Drawing.Point(8, 447);
             this.Pen_Panel.Name = "Pen_Panel";
-            this.Pen_Panel.Size = new System.Drawing.Size(118, 118);
+            this.Pen_Panel.Size = new System.Drawing.Size(118, 139);
             this.Pen_Panel.TabIndex = 30;
             // 
             // Color_Pen_Label
@@ -316,10 +319,10 @@
             this.Line_RadioButton.AutoSize = true;
             this.Line_RadioButton.Location = new System.Drawing.Point(24, 39);
             this.Line_RadioButton.Name = "Line_RadioButton";
-            this.Line_RadioButton.Size = new System.Drawing.Size(71, 17);
+            this.Line_RadioButton.Size = new System.Drawing.Size(74, 17);
             this.Line_RadioButton.TabIndex = 23;
             this.Line_RadioButton.TabStop = true;
-            this.Line_RadioButton.Text = "Line Style";
+            this.Line_RadioButton.Text = "Solid Style";
             this.Line_RadioButton.UseVisualStyleBackColor = true;
             // 
             // Width_NumericUpDown
@@ -347,9 +350,9 @@
             // Main_PictureBox
             // 
             this.Main_PictureBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Main_PictureBox.Location = new System.Drawing.Point(136, 6);
+            this.Main_PictureBox.Location = new System.Drawing.Point(136, 12);
             this.Main_PictureBox.Name = "Main_PictureBox";
-            this.Main_PictureBox.Size = new System.Drawing.Size(1061, 616);
+            this.Main_PictureBox.Size = new System.Drawing.Size(1085, 616);
             this.Main_PictureBox.TabIndex = 27;
             this.Main_PictureBox.TabStop = false;
             this.Main_PictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.Main_PictureBox_Paint);
@@ -382,12 +385,13 @@
             // Control_Panel
             // 
             this.Control_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Control_Panel.Controls.Add(this.Delete_Button);
             this.Control_Panel.Controls.Add(this.Control_Label);
             this.Control_Panel.Controls.Add(this.Select_Button);
             this.Control_Panel.Controls.Add(this.DeleteAll_Button);
-            this.Control_Panel.Location = new System.Drawing.Point(5, 339);
+            this.Control_Panel.Location = new System.Drawing.Point(8, 338);
             this.Control_Panel.Name = "Control_Panel";
-            this.Control_Panel.Size = new System.Drawing.Size(121, 86);
+            this.Control_Panel.Size = new System.Drawing.Size(121, 103);
             this.Control_Panel.TabIndex = 33;
             // 
             // Control_Label
@@ -399,11 +403,35 @@
             this.Control_Label.TabIndex = 30;
             this.Control_Label.Text = "Control";
             // 
+            // Delete_Button
+            // 
+            this.Delete_Button.Location = new System.Drawing.Point(10, 46);
+            this.Delete_Button.Name = "Delete_Button";
+            this.Delete_Button.Size = new System.Drawing.Size(100, 25);
+            this.Delete_Button.TabIndex = 34;
+            this.Delete_Button.Text = "Delete";
+            this.Delete_Button.UseVisualStyleBackColor = true;
+            this.Delete_Button.Click += new System.EventHandler(this.Delete_Button_Click);
+            // 
+            // DashStyle_ComboBox
+            // 
+            this.DashStyle_ComboBox.FormattingEnabled = true;
+            this.DashStyle_ComboBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.DashStyle_ComboBox.Items.AddRange(new object[] {
+            "Dash ",
+            "DashDotDot",
+            "Dot"});
+            this.DashStyle_ComboBox.Location = new System.Drawing.Point(24, 110);
+            this.DashStyle_ComboBox.Name = "DashStyle_ComboBox";
+            this.DashStyle_ComboBox.Size = new System.Drawing.Size(88, 21);
+            this.DashStyle_ComboBox.TabIndex = 36;
+            this.DashStyle_ComboBox.Text = "Dash ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1208, 634);
+            this.ClientSize = new System.Drawing.Size(1233, 638);
             this.Controls.Add(this.Control_Panel);
             this.Controls.Add(this.Draw_Panel);
             this.Controls.Add(this.Brush_Panel);
@@ -465,6 +493,8 @@
         private System.Windows.Forms.Button Arc_Button;
         private System.Windows.Forms.Label Color_Brush_Label;
         private System.Windows.Forms.Label Color_Pen_Label;
+        private System.Windows.Forms.Button Delete_Button;
+        private System.Windows.Forms.ComboBox DashStyle_ComboBox;
     }
 }
 
