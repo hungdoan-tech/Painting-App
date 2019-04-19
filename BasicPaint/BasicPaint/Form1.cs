@@ -172,7 +172,7 @@ namespace BasicPaint
             {
                 if (kcy >= 0)
                 {
-                    if (E.Y <= B.Y + 2 && E.Y >= B.Y - 2 && E.X >= A.X - 1 && E.X <= B.X + 1 )
+                    if (E.Y <= B.Y + 2 && E.Y >= B.Y - 2 && E.X >= A.X - 1 && E.X <= B.X + 1)
                     {
                         HuongZoom = 1;
                         return 1;
@@ -212,7 +212,7 @@ namespace BasicPaint
                     else
                     {
                         if (E.Y <= A.Y + 2 && E.Y >= A.Y - 2 && E.X >= A.X - 1 && E.X <= B.X + 1)
-                        {                            
+                        {
                             HuongZoom = 2;
                             return 2;
                         }
@@ -239,7 +239,7 @@ namespace BasicPaint
             {
                 if (kcy >= 0)
                 {
-                    if (E.Y <= B.Y + 2 && E.Y >= B.Y - 2 && E.X >= B.X- 1 && E.X <= A.X + 1)
+                    if (E.Y <= B.Y + 2 && E.Y >= B.Y - 2 && E.X >= B.X - 1 && E.X <= A.X + 1)
                     {
                         HuongZoom = 1;
                         return 1;
@@ -261,7 +261,7 @@ namespace BasicPaint
                             else
                             {
                                 if (E.X <= B.X + 2 && E.X >= B.X - 2 && E.Y <= B.Y + 1 && E.Y >= A.Y - 1)
-                                {     
+                                {
                                     HuongZoom = 4;
                                     return 4;
                                 }
@@ -438,17 +438,7 @@ namespace BasicPaint
             Ob.p2.Y += kcy;
             if (MultiSelect == false)
             {
-                StartPointSpecial = Po;
-            }
-        }
-        public void Zoom(ref PointF A, PointF Po)
-        {
-            float kcx = Po.X - StartPointSpecial.X;
-            float kcy = Po.Y - StartPointSpecial.Y;
-            A.X += kcx;
-            A.Y += kcy;
-            if (MultiSelect == false)
-            {
+                if(Ob.BeGroup!=true)
                 StartPointSpecial = Po;
             }
         }
@@ -628,19 +618,300 @@ namespace BasicPaint
         {
             if (e.KeyValue == 17)
             {
-                MultiSelect = false; 
+                MultiSelect = false;
             }
+        }
+
+        private void DeQuyZooomGroup(ref DrawObject A, PointF e)
+        {
+            if (A.ListGroup != null)
+            {
+                for (int j = 0; j < A.ListGroup.Count; j++)
+                {
+                    if (A.ListGroup[j].ListGroup != null)
+                    {
+                        DrawObject TempGroupDeQui = A.ListGroup[j];
+                        DeQuyZooomGroup(ref TempGroupDeQui, e);
+                        A.ListGroup[j] = TempGroupDeQui;
+                    }
+                    if (A.ListGroup[j].PointArray != null)
+                    {
+                        DrawObject Temp = A.ListGroup[j];
+                        ZoomPolygon(ref Temp, e);
+                        XacDinhLaiViTriPolygonSpecial(ref Temp);
+                        Temp.DashRectangle.p1 = Temp.p1;
+                        Temp.DashRectangle.p2 = Temp.p2;
+                        A.ListGroup[j] = Temp;
+                    }
+                    else
+                    {
+                        DrawObject Temp = A.ListGroup[j];
+                        Zoom(ref Temp, e);
+                        A.ListGroup[j] = Temp;
+                    }
+                }
+                DrawObject TempGroupOb = A;
+                XacDinhViTriGroupObject(ref TempGroupOb);
+                TempGroupOb.DashRectangle.p1 = TempGroupOb.p1;
+                TempGroupOb.DashRectangle.p2 = TempGroupOb.p2;
+                A = TempGroupOb;
+            }
+            else
+            {
+                if (A.PointArray != null)
+                {
+                    DrawObject Temp = A;
+                    ZoomPolygon(ref Temp, e);
+                    XacDinhLaiViTriPolygonSpecial(ref Temp);
+                    Temp.DashRectangle.p1 = Temp.p1;
+                    Temp.DashRectangle.p2 = Temp.p2;
+                    A = Temp;
+                }
+                else
+                {
+                    DrawObject Temp = A;
+                    Zoom(ref Temp, e);
+                    A = Temp;
+                }
+            }
+        }
+        public void Zoom(ref DrawObject A, PointF Po)
+        {
+            float kcx = Po.X - StartPointSpecial.X;
+            float kcy = Po.Y - StartPointSpecial.Y;
+            if (HuongZoom == 1)
+            {
+                A.p2.X += kcx;
+                A.p2.Y += kcy;
+                A.DashRectangle.p2 = A.p2;
+            }
+            else
+            {
+                if (HuongZoom == 2)
+                {
+                    A.p1.X += kcx;
+                    A.p1.Y += kcy;
+                    A.DashRectangle.p1 = A.p1;
+                }
+                else
+                {
+                    if (HuongZoom == 3)
+                    {
+                        A.p1.X += kcx;
+                        A.p1.Y += kcy;
+                        A.DashRectangle.p1 = A.p1;
+                    }
+                    else
+                    {
+                        if (HuongZoom == 4)
+                        {
+                            A.p2.X += kcx;
+                            A.p2.Y += kcy;
+                            A.DashRectangle.p2 = A.p2;
+                        }
+                    }
+                }
+            }
+            if (MultiSelect == false)
+            {
+                if (A.BeGroup != true)
+                {
+                    StartPointSpecial = Po;
+                }
+            }
+        }
+        private void DeQuiDiChuyenGroup(ref DrawObject A, PointF e)
+        {
+            if (A.ListGroup != null)
+            {
+
+                for (int j = 0; j < A.ListGroup.Count; j++)
+                {
+                    if (A.ListGroup[j].ListGroup != null)
+                    {
+                        DrawObject TempGroupDeQui = A.ListGroup[j];
+                        DeQuiDiChuyenGroup(ref TempGroupDeQui, e);
+                        A.ListGroup[j] = TempGroupDeQui;
+                    }
+                    DrawObject Temp = A.ListGroup[j];
+                    XacDinhLaiViTri(ref Temp, e);
+                    Temp.DashRectangle.p1 = Temp.p1;
+                    Temp.DashRectangle.p2 = Temp.p2;
+                    A.ListGroup[j] = Temp;
+                }
+                DrawObject TempGroupOb = A;
+                XacDinhViTriGroupObject(ref TempGroupOb);
+                TempGroupOb.DashRectangle.p1 = TempGroupOb.p1;
+                TempGroupOb.DashRectangle.p2 = TempGroupOb.p2;
+                A = TempGroupOb;
+            }
+            else
+            {
+                DrawObject Temp = A;
+                XacDinhLaiViTri(ref Temp, e);
+                Temp.DashRectangle.p1 = Temp.p1;
+                Temp.DashRectangle.p2 = Temp.p2;
+                A = Temp;
+            }
+        }
+
+        private void XacDinhViTriGroupObject(ref DrawObject A)
+        {
+            float MaxXP1 = A.ListGroup[0].p1.X;
+            float MaxYP1 = A.ListGroup[0].p1.Y;
+            float MaxXP2 = A.ListGroup[0].p2.X;
+            float MaxYP2 = A.ListGroup[0].p2.Y;
+            for (int i = 0; i < A.ListGroup.Count; i++)
+            {
+                if (A.ListGroup[i].p1.X < MaxXP1)
+                {
+                    MaxXP1 = A.ListGroup[i].p1.X;
+                }
+                if (A.ListGroup[i].p2.X < MaxXP1)
+                {
+                    MaxXP1 = A.ListGroup[i].p2.X;
+                }
+
+                if (A.ListGroup[i].p1.Y < MaxYP1)
+                {
+                    MaxYP1 = A.ListGroup[i].p1.Y;
+                }
+                if (A.ListGroup[i].p2.Y < MaxYP1)
+                {
+                    MaxYP1 = A.ListGroup[i].p2.Y;
+                }
+
+                if (A.ListGroup[i].p1.X > MaxXP2)
+                {
+                    MaxXP2 = A.ListGroup[i].p1.X;
+                }
+                if (A.ListGroup[i].p2.X > MaxXP2)
+                {
+                    MaxXP2 = A.ListGroup[i].p2.X;
+                }
+
+                if (A.ListGroup[i].p1.Y > MaxYP2)
+                {
+                    MaxYP2 = A.ListGroup[i].p1.Y;
+                }
+                if (A.ListGroup[i].p2.Y > MaxYP2)
+                {
+                    MaxYP2 = A.ListGroup[i].p2.Y;
+                }
+            }
+            A.p1.X = MaxXP1;
+            A.p1.Y = MaxYP1;
+            A.p2.X = MaxXP2;
+            A.p2.Y = MaxYP2;
         }
         private void groupToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < ListDrawObject.Count;i++)
+            int Dem = 0;
+            for (int i = 0; i < ListDrawObject.Count; i++)
             {
-                ListDrawObject[i].BeChosen = true;
+                if (ListDrawObject[i].BeChosen == true)
+                {
+                    Dem++;
+                }
+            }
+            if (Dem >= 2)
+            {
+                DrawObject ob = new cGroup();
+                ob.ListGroup = new List<DrawObject>();
+                ob.BeChosen = true;
+                for (int i = 0; i < ListDrawObject.Count; i++)
+                {
+                    if (ListDrawObject[i].BeChosen == true)
+                    {
+                        ob.ListGroup.Add(ListDrawObject[i]);
+                    }
+                }
+                bool flag;
+                do
+                {
+                   flag = false;
+                    for (int i = 0; i < ListDrawObject.Count; i++)
+                    {
+                        if (ListDrawObject[i].BeChosen == true)
+                        {
+                            ListDrawObject.RemoveAt(i);
+                            flag = true;
+                        }
+                    }
+                } while (flag == true);
+                for (int i = 0; i < ob.ListGroup.Count; i++)
+                {
+                    ob.ListGroup[i].BeGroup = true;
+                    if (ob.ListGroup[i].BeChosen == true)
+                    {
+                        ob.ListGroup[i].BeChosen = false;
+                    }
+                }
+                XacDinhViTriGroupObject(ref ob);
+
+
+                if (CheckPenColor == true)
+                {
+                    ob.MyPenColor = PenColor;
+                }
+                if (CheckBrushColor == true)
+                {
+                    ob.MyBrushColor = BrushColor;
+                }
+                ob.MyPen = new Pen(ob.MyPenColor, Convert.ToInt32(Width_NumericUpDown.Value));
+                if (Dash_RadioButton.Checked == true)
+                {
+                    ob.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                }
+                ob.MyBrush = new SolidBrush(ob.MyBrushColor);
+
+
+                ob.DashRectangle = new cRectangle();
+                ob.DashRectangle.MyPen = new Pen(Color.Black, 3);
+                ob.DashRectangle.MyPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                ob.DashRectangle.p1 = ob.p1;
+                ob.DashRectangle.p2 = ob.p2;
+                ListDrawObject.Add(ob);
             }
         }
         private void ungroupToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            List<DrawObject> ListTemp = new List<DrawObject>();
+            for (int i = 0; i < ListDrawObject.Count; i++)
+            {
+                if (ListDrawObject[i].BeChosen == true)
+                {
+                    if (ListDrawObject[i].ListGroup != null)
+                    {
+                        for (int j = 0; j < ListDrawObject[i].ListGroup.Count; j++)
+                        {
+                            ListDrawObject[i].ListGroup[j].BeChosen=true;
+                            ListDrawObject[i].ListGroup[j].BeGroup = false;
+                            ListTemp.Add(ListDrawObject[i].ListGroup[j]);
+                        }
+                    }
+                }
+            }
+            bool flag;
+            do
+            {
+                flag = false;
+                for (int i = 0; i < ListDrawObject.Count; i++)
+                {
+                    if (ListDrawObject[i].BeChosen == true)
+                    {
+                        if (ListDrawObject[i].ListGroup != null)
+                        {
+                            flag = true;
+                            ListDrawObject.RemoveAt(i);
+                        }
+                    }
+                }
+            } while (flag == true);
+            for (int i = 0; i < ListTemp.Count; i++)
+            {
+                ListDrawObject.Add(ListTemp[i]);
+            }
         }
         private void Main_PictureBox_MouseDown(object sender, MouseEventArgs e)
         {
@@ -648,7 +919,7 @@ namespace BasicPaint
             {
                 if (NumberOfObject == 0)
                 {
-               
+
                     bool Exist = false;
                     for (int i = 0; i < ListDrawObject.Count; i++)
                     {
@@ -832,9 +1103,7 @@ namespace BasicPaint
                     if (ListDrawObject[i].BeChosen == true)
                     {
                         DrawObject Temp = ListDrawObject[i];
-                        XacDinhLaiViTri(ref Temp, e.Location);
-                        Temp.DashRectangle.p1 = Temp.p1;
-                        Temp.DashRectangle.p2 = Temp.p2;
+                        DeQuiDiChuyenGroup(ref Temp, e.Location);
                         ListDrawObject[i] = Temp;
                     }
                 }
@@ -848,47 +1117,9 @@ namespace BasicPaint
                     {
                         if (ListDrawObject[i].BeChosen == true)
                         {
-                            if (ListDrawObject[i].PointArray != null)
-                            {
-                                DrawObject Temp = ListDrawObject[i];
-                                ZoomPolygon(ref Temp, e.Location);
-                                XacDinhLaiViTriPolygonSpecial(ref Temp);
-                                Temp.DashRectangle.p1 = Temp.p1;
-                                Temp.DashRectangle.p2 = Temp.p2;
-                                ListDrawObject[i] = Temp;
-                            }
-                            else
-                            {
-                                if (HuongZoom == 1)
-                                {
-                                    Zoom(ref ListDrawObject[i].p2, e.Location);
-                                    ListDrawObject[i].DashRectangle.p2 = ListDrawObject[i].p2;
-                                }
-                                else
-                                {
-                                    if (HuongZoom == 2)
-                                    {
-                                        Zoom(ref ListDrawObject[i].p1, e.Location);
-                                        ListDrawObject[i].DashRectangle.p1 = ListDrawObject[i].p1;
-                                    }
-                                    else
-                                    {
-                                        if (HuongZoom == 3)
-                                        {
-                                            Zoom(ref ListDrawObject[i].p1, e.Location);
-                                            ListDrawObject[i].DashRectangle.p1 = ListDrawObject[i].p1;
-                                        }
-                                        else
-                                        {
-                                            if (HuongZoom == 4)
-                                            {
-                                                Zoom(ref ListDrawObject[i].p2, e.Location);
-                                                ListDrawObject[i].DashRectangle.p2 = ListDrawObject[i].p2;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            DrawObject Temp = ListDrawObject[i];
+                            DeQuyZooomGroup(ref Temp, e.Location);
+                            ListDrawObject[i] = Temp;
                         }
                     }
                     StartPointSpecial = e.Location;
@@ -942,9 +1173,7 @@ namespace BasicPaint
                     if (ListDrawObject[i].BeChosen == true)
                     {
                         DrawObject Temp = ListDrawObject[i];
-                        XacDinhLaiViTri(ref Temp, e.Location);
-                        Temp.DashRectangle.p1 = Temp.p1;
-                        Temp.DashRectangle.p2 = Temp.p2;
+                        DeQuiDiChuyenGroup(ref Temp, e.Location);
                         ListDrawObject[i] = Temp;
                     }
                 }
@@ -957,49 +1186,11 @@ namespace BasicPaint
                 {
                     for (int i = 0; i < ListDrawObject.Count; i++)
                     {
-                        if (ListDrawObject[i].PointArray != null)
+                        if (ListDrawObject[i].BeChosen == true)
                         {
                             DrawObject Temp = ListDrawObject[i];
-                            ZoomPolygon(ref Temp, e.Location);
-                            XacDinhLaiViTriPolygon(ref Temp);
-                            Temp.DashRectangle.p1 = Temp.p1;
-                            Temp.DashRectangle.p2 = Temp.p2;
+                            DeQuyZooomGroup(ref Temp, e.Location);
                             ListDrawObject[i] = Temp;
-                        }
-                        else
-                        {
-                            if (ListDrawObject[i].BeChosen == true)
-                            {
-                                if (HuongZoom == 1)
-                                {
-                                    Zoom(ref ListDrawObject[i].p2, e.Location);
-                                    ListDrawObject[i].DashRectangle.p2 = ListDrawObject[i].p2;
-                                }
-                                else
-                                {
-                                    if (HuongZoom == 2)
-                                    {
-                                        Zoom(ref ListDrawObject[i].p1, e.Location);
-                                        ListDrawObject[i].DashRectangle.p1 = ListDrawObject[i].p1;
-                                    }
-                                    else
-                                    {
-                                        if (HuongZoom == 3)
-                                        {
-                                            Zoom(ref ListDrawObject[i].p1, e.Location);
-                                            ListDrawObject[i].DashRectangle.p1 = ListDrawObject[i].p1;
-                                        }
-                                        else
-                                        {
-                                            if (HuongZoom == 4)
-                                            {
-                                                Zoom(ref ListDrawObject[i].p2, e.Location);
-                                                ListDrawObject[i].DashRectangle.p2 = ListDrawObject[i].p2;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
                         }
                     }
                     StartPointSpecial = e.Location;
@@ -1048,10 +1239,30 @@ namespace BasicPaint
             public Color MyBrushColor = Color.Black;
             public Pen MyPen;
             public Brush MyBrush;
+            public bool BeGroup;
             public bool BeChosen;
             public abstract void Draw(Graphics gp, Pen MyPen);
             public abstract void Fill(Graphics gp, Brush MyBrush);
         }
+        public class cGroup : DrawObject
+        {
+
+            public override void Draw(Graphics gp, Pen MyPen)
+            {
+                for (int i = 0; i < this.ListGroup.Count; i++)
+                {
+                    ListGroup[i].Draw( gp, ListGroup[i].MyPen);
+                }
+            }
+            public override void Fill(Graphics gp, Brush MyBrush)
+            {
+                for (int i = 0; i < this.ListGroup.Count; i++)
+                {
+                    ListGroup[i].Fill(gp, ListGroup[i].MyBrush);
+                }
+            }
+        }
+           
         public class cLine : DrawObject
         {
             public override void Draw(Graphics gp, Pen MyPen)

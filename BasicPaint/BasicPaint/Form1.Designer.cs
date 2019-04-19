@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.Draw_Panel = new System.Windows.Forms.Panel();
+            this.Arc_Button = new System.Windows.Forms.Button();
             this.Draw_Label = new System.Windows.Forms.Label();
             this.Line_Button = new System.Windows.Forms.Button();
             this.Ecclipe_Button = new System.Windows.Forms.Button();
@@ -42,9 +43,11 @@
             this.SolidCircle_Button = new System.Windows.Forms.Button();
             this.DeleteAll_Button = new System.Windows.Forms.Button();
             this.Brush_Panel = new System.Windows.Forms.Panel();
+            this.Color_Brush_Label = new System.Windows.Forms.Label();
             this.Brush_Label = new System.Windows.Forms.Label();
             this.ColorBrush_Panel = new System.Windows.Forms.Panel();
             this.Pen_Panel = new System.Windows.Forms.Panel();
+            this.Color_Pen_Label = new System.Windows.Forms.Label();
             this.ColorPen_Panel = new System.Windows.Forms.Panel();
             this.WidthPen_Panel = new System.Windows.Forms.Label();
             this.Pen_Label = new System.Windows.Forms.Label();
@@ -59,9 +62,6 @@
             this.ungroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Control_Panel = new System.Windows.Forms.Panel();
             this.Control_Label = new System.Windows.Forms.Label();
-            this.Arc_Button = new System.Windows.Forms.Button();
-            this.Color_Brush_Label = new System.Windows.Forms.Label();
-            this.Color_Pen_Label = new System.Windows.Forms.Label();
             this.Draw_Panel.SuspendLayout();
             this.Brush_Panel.SuspendLayout();
             this.Pen_Panel.SuspendLayout();
@@ -85,10 +85,20 @@
             this.Draw_Panel.Controls.Add(this.Circle_Button);
             this.Draw_Panel.Controls.Add(this.Polygon_Button);
             this.Draw_Panel.Controls.Add(this.SolidCircle_Button);
-            this.Draw_Panel.Location = new System.Drawing.Point(12, 12);
+            this.Draw_Panel.Location = new System.Drawing.Point(3, 0);
             this.Draw_Panel.Name = "Draw_Panel";
             this.Draw_Panel.Size = new System.Drawing.Size(126, 322);
             this.Draw_Panel.TabIndex = 32;
+            // 
+            // Arc_Button
+            // 
+            this.Arc_Button.Location = new System.Drawing.Point(14, 294);
+            this.Arc_Button.Name = "Arc_Button";
+            this.Arc_Button.Size = new System.Drawing.Size(99, 23);
+            this.Arc_Button.TabIndex = 22;
+            this.Arc_Button.Text = "Arc";
+            this.Arc_Button.UseVisualStyleBackColor = true;
+            this.Arc_Button.Click += new System.EventHandler(this.Arc_Button_Click);
             // 
             // Draw_Label
             // 
@@ -205,10 +215,19 @@
             this.Brush_Panel.Controls.Add(this.Color_Brush_Label);
             this.Brush_Panel.Controls.Add(this.Brush_Label);
             this.Brush_Panel.Controls.Add(this.ColorBrush_Panel);
-            this.Brush_Panel.Location = new System.Drawing.Point(25, 583);
+            this.Brush_Panel.Location = new System.Drawing.Point(9, 572);
             this.Brush_Panel.Name = "Brush_Panel";
-            this.Brush_Panel.Size = new System.Drawing.Size(104, 45);
+            this.Brush_Panel.Size = new System.Drawing.Size(121, 45);
             this.Brush_Panel.TabIndex = 31;
+            // 
+            // Color_Brush_Label
+            // 
+            this.Color_Brush_Label.AutoSize = true;
+            this.Color_Brush_Label.Location = new System.Drawing.Point(4, 15);
+            this.Color_Brush_Label.Name = "Color_Brush_Label";
+            this.Color_Brush_Label.Size = new System.Drawing.Size(31, 13);
+            this.Color_Brush_Label.TabIndex = 34;
+            this.Color_Brush_Label.Text = "Color";
             // 
             // Brush_Label
             // 
@@ -225,7 +244,7 @@
             this.ColorBrush_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ColorBrush_Panel.Location = new System.Drawing.Point(44, 15);
             this.ColorBrush_Panel.Name = "ColorBrush_Panel";
-            this.ColorBrush_Panel.Size = new System.Drawing.Size(49, 15);
+            this.ColorBrush_Panel.Size = new System.Drawing.Size(53, 13);
             this.ColorBrush_Panel.TabIndex = 0;
             this.ColorBrush_Panel.Click += new System.EventHandler(this.ColorBrush_Panel_Click);
             // 
@@ -239,10 +258,19 @@
             this.Pen_Panel.Controls.Add(this.Dash_RadioButton);
             this.Pen_Panel.Controls.Add(this.Line_RadioButton);
             this.Pen_Panel.Controls.Add(this.Width_NumericUpDown);
-            this.Pen_Panel.Location = new System.Drawing.Point(25, 447);
+            this.Pen_Panel.Location = new System.Drawing.Point(8, 448);
             this.Pen_Panel.Name = "Pen_Panel";
-            this.Pen_Panel.Size = new System.Drawing.Size(102, 118);
+            this.Pen_Panel.Size = new System.Drawing.Size(118, 118);
             this.Pen_Panel.TabIndex = 30;
+            // 
+            // Color_Pen_Label
+            // 
+            this.Color_Pen_Label.AutoSize = true;
+            this.Color_Pen_Label.Location = new System.Drawing.Point(4, 88);
+            this.Color_Pen_Label.Name = "Color_Pen_Label";
+            this.Color_Pen_Label.Size = new System.Drawing.Size(31, 13);
+            this.Color_Pen_Label.TabIndex = 35;
+            this.Color_Pen_Label.Text = "Color";
             // 
             // ColorPen_Panel
             // 
@@ -319,7 +347,7 @@
             // Main_PictureBox
             // 
             this.Main_PictureBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Main_PictureBox.Location = new System.Drawing.Point(155, 12);
+            this.Main_PictureBox.Location = new System.Drawing.Point(136, 6);
             this.Main_PictureBox.Name = "Main_PictureBox";
             this.Main_PictureBox.Size = new System.Drawing.Size(1061, 616);
             this.Main_PictureBox.TabIndex = 27;
@@ -357,7 +385,7 @@
             this.Control_Panel.Controls.Add(this.Control_Label);
             this.Control_Panel.Controls.Add(this.Select_Button);
             this.Control_Panel.Controls.Add(this.DeleteAll_Button);
-            this.Control_Panel.Location = new System.Drawing.Point(17, 340);
+            this.Control_Panel.Location = new System.Drawing.Point(5, 339);
             this.Control_Panel.Name = "Control_Panel";
             this.Control_Panel.Size = new System.Drawing.Size(121, 86);
             this.Control_Panel.TabIndex = 33;
@@ -371,39 +399,11 @@
             this.Control_Label.TabIndex = 30;
             this.Control_Label.Text = "Control";
             // 
-            // Arc_Button
-            // 
-            this.Arc_Button.Location = new System.Drawing.Point(14, 294);
-            this.Arc_Button.Name = "Arc_Button";
-            this.Arc_Button.Size = new System.Drawing.Size(99, 23);
-            this.Arc_Button.TabIndex = 22;
-            this.Arc_Button.Text = "Arc";
-            this.Arc_Button.UseVisualStyleBackColor = true;
-            this.Arc_Button.Click += new System.EventHandler(this.Arc_Button_Click);
-            // 
-            // Color_Brush_Label
-            // 
-            this.Color_Brush_Label.AutoSize = true;
-            this.Color_Brush_Label.Location = new System.Drawing.Point(4, 15);
-            this.Color_Brush_Label.Name = "Color_Brush_Label";
-            this.Color_Brush_Label.Size = new System.Drawing.Size(31, 13);
-            this.Color_Brush_Label.TabIndex = 34;
-            this.Color_Brush_Label.Text = "Color";
-            // 
-            // Color_Pen_Label
-            // 
-            this.Color_Pen_Label.AutoSize = true;
-            this.Color_Pen_Label.Location = new System.Drawing.Point(4, 88);
-            this.Color_Pen_Label.Name = "Color_Pen_Label";
-            this.Color_Pen_Label.Size = new System.Drawing.Size(31, 13);
-            this.Color_Pen_Label.TabIndex = 35;
-            this.Color_Pen_Label.Text = "Color";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1233, 638);
+            this.ClientSize = new System.Drawing.Size(1208, 634);
             this.Controls.Add(this.Control_Panel);
             this.Controls.Add(this.Draw_Panel);
             this.Controls.Add(this.Brush_Panel);
@@ -412,7 +412,7 @@
             this.KeyPreview = true;
             this.MaximumSize = new System.Drawing.Size(1249, 677);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Basic Paint";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             this.Draw_Panel.ResumeLayout(false);
